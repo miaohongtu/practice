@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style>
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td {
+            margin:0;
+            padding:0;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            position: relative;
+            min-height: 100%;
+            /*background-color: rgba(0,0,0,0.3);*/
+        }
+        .bomb{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            width: 25rem;
+            height: 13.6rem;
+            /*border: 1px solid #ececee;*/
+            border-radius: 1rem;
+            background-color: #ffffff;
+            box-shadow: -1px -1px 30px 5px rgba(0,0,0,0.2);
+        }
+        .bomb .tips{
+            padding: 2.4rem 0;
+            border-bottom: 1px solid #ececee;
+            color: #404040;
+        }
+        .bomb .tips p{
+            text-align: center;
+            line-height: 2.2rem;
+        }
+        .bomb .type{
+            display: flex;
+        }
+        .bomb .type a{
+            flex: 1;
+            text-align: center;
+            line-height: 4.4rem;
+            text-decoration: none;
+            color: #0076ff;
+        }
+        .bomb .type a:nth-child(1){
+            border-right: 1px solid #ececee;
+        }
+    </style>
+    <script src="./rem.js"></script>
+    <script>
+        window.onload = function(){
+            document.getElementsByClassName("close")[0].onclick = function(){
+                document.getElementsByClassName("bomb")[0].style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="bomb">
+        <div class="tips">
+            <p>您已开通plus会员</p>
+            <p>请重新选择注册企业会员</p>
+        </div>
+        <div class="type">
+            <a class="close">取消</a>
+            <a href="./upgrade.html">注册</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style>
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td {
+            margin:0;
+            padding:0;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            min-height: 100%;
+            background-color: #f8f8f8;
+            /*background-color: rgba(0,0,0,0.3);*/
+        }
+        .hd{
+            height: 4.5rem;
+            width: 100%;
+            line-height: 4.5rem;
+            font-size: 1.6rem;
+            border-bottom: 1px solid #ececee;
+            position: relative;
+            text-align: center;
+            background-color: white;
+        }
+        .back-icon{
+            display:block;
+            position: absolute;
+            top: 1.4rem;
+            left: 1.4rem;
+            width: 1.6rem;
+            height: 1.6rem;
+            background-image: url(./img/back-icon.jpg);
+            background-size: 100% 100%;
+        }
+        .license-img{
+            position: relative;
+            padding-top: 10rem;
+            text-align: center;
+            font-size: 1.25rem;
+        }
+        .license-img p{
+            position: absolute;
+            left: 1.15rem;
+            top: 1.6rem;
+        }
+        .choose-file-div{
+            position: relative;
+            width: 11rem;
+            height: 11rem;
+            border: 1px dashed #c7c7c7;
+            margin: 0 auto 2rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .choose-file-div>div:nth-child(1){
+            width: 4.1rem;
+            height: 0;
+            border-top: 0.5rem solid #d8d8d8;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .choose-file-div>div:nth-child(2){
+            width: 0;
+            height: 4.1rem;
+            border-left: 0.5rem solid #d8d8d8;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .choose-file-div input{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 2;
+
+        }
+        .next-page{
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            width: 35.5rem;
+            height: 4.3rem;
+            line-height: 4.3rem;
+            text-align: center;
+            background-color: #f15352;
+            color: white;
+            border-radius: 0.5rem;
+            font-size: 1.5rem;
+        }
+        .upload-img{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        /*提示*/
+        .toast{
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 22rem;
+            height: 4rem;
+            background-color: rgba(0,0,0,0.3);
+            font-size: 1.5rem;
+            color: white;
+            line-height: 4rem;
+            text-align: center;
+            border-radius: 1rem;
+            box-shadow: 1px 1px 20px 5px rgba(0,0,0,0.3);
+        }
+    </style>
+    <script src="./rem.js"></script>
+</head>
+<body>
+<div class="hd">
+    <a class="back-icon" href="javascript: history.go(-1)">
+
+    </a>
+    <span>升级为企业用户</span>
+</div>
+<div class="license-img">
+    <p id="title" style = "display:none;">证件照</p>
+    <div class="choose-file-div">
+        <div></div>
+        <div></div>
+        <input id="uploadImage" type="file" />
+    </div>
+    <span id="tips">上传营业执照或组织机构代码证</span>
+</div>
+<div class="next-page">提交</div>
+<!--提示-->
+<div class="toast"></div>
+<script type="text/javascript">
+    oFReader = new FileReader(), rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/ief|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+    var img = document.createElement("img"),
+        div =  document.getElementsByClassName("choose-file-div")[0];
+    oFReader.onload = function(event){
+        var img0 = div.childNodes[6];
+        div.style.width = 35.4 + "rem";
+        div.style.height = 25.75 + "rem";
+        img.className = "upload-img";
+        document.getElementsByClassName("license-img")[0].style.paddingTop = 4.5 + "rem";
+        div.replaceChild(img,img0);
+        img.src = event.target.result;
+        document.getElementById("title").style.display = "block";
+        document.getElementById("tips").style.display = "none";
+    }
+    document.getElementById("uploadImage").onchange = function(){
+        if(this.files.length === 0){return;}
+        var oFile = this.files[0];
+        if(!rFilter.test(oFile.type)){alert("You must select a valid image file!"); return;}
+        oFReader.readAsDataURL(oFile);
+    }
+//    点击提交
+    document.getElementsByClassName("next-page")[0].addEventListener("click",function(){
+        if(div.childNodes[6].nodeName.toUpperCase() !== "IMG"){
+            document.getElementsByClassName("toast")[0].style.display = "block";
+            document.getElementsByClassName("toast")[0].innerHTML = "请上传营业执照或组织机构代码证";
+            setTimeout(function(){
+                document.getElementsByClassName("toast")[0].style.display = "none";
+            },1000)
+        }else{
+            location.href = "./toast.html";
+        }
+    });
+</script>
+</body>
+</html>

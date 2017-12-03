@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <style>
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td {
+            margin:0;
+            padding:0;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            min-height: 100%;
+            background-color: #f8f8f8;
+            /*background-color: rgba(0,0,0,0.3);*/
+        }
+        .hd{
+            height: 4.5rem;
+            width: 100%;
+            line-height: 4.5rem;
+            font-size: 1.6rem;
+            border-bottom: 1px solid #ececee;
+            position: relative;
+            text-align: center;
+            background-color: white;
+        }
+        .back-icon{
+            display: block;
+            position: absolute;
+            top: 1.4rem;
+            left: 1.4rem;
+            width: 1.6rem;
+            height: 1.6rem;
+            background-image: url(./img/back-icon.jpg);
+            background-size: 100% 100%;
+        }
+        .welcome{
+            /*position: absolute;*/
+            /*top: 4.5rem;*/
+            /*left: 0;*/
+            position: relative;
+            height: 3.4rem;
+            background-color: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .welcome .pic{
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .welcome .pic img{
+            width: 100%;
+        }
+        .welcome span{
+            position: absolute;
+            top: 2rem;
+            left: 5rem;
+            font-size: 1.35rem;
+        }
+        /*采集信息栏*/
+        .information>div {
+            height: 1.4rem;
+            background-color: white;
+            border-bottom: 1px solid #ececee;
+            padding: 1.5rem 1.15rem;
+
+        }
+        .information>div input{
+            outline: none;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 1.3rem;
+
+        }
+        .information>div:nth-child(2) span{
+            font-size: 1.3rem;
+        }
+        .choose{
+            float: right;
+            width: 1.15rem;
+            height: 1.6rem;
+            background-image: url(./img/choose-icon.jpg);
+            background-size: 100% 100%;
+        }
+        .protocol{
+            position: relative;
+            padding: 1.4rem 3rem;
+            font-size: 1.4rem;
+            margin-left: 0.4rem;
+        }
+        .protocol .btn{
+            position: absolute;
+            left: 1rem;
+            top: 1.55rem;
+            width: 1.4rem;
+            height: 1.4rem;
+            border-radius: 999px;
+            display: inline-block;
+            border: 1px solid #cecece;
+        }
+        .next-page{
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            width: 35.5rem;
+            height: 4.3rem;
+            line-height: 4.3rem;
+            text-align: center;
+            background-color: #f15352;
+            color: white;
+            border-radius: 0.5rem;
+            font-size: 1.5rem;
+        }
+        @media (max-height:400px){
+            .next-page{display:none;}
+        }
+        .choice{
+            position: absolute;
+            top: 4.5rem;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.3);
+        }
+        .list{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 34.2rem;
+            background-color: white;
+
+        }
+        .list-hd{
+            position: relative;
+            height: 6.5rem;
+            padding-top: 1.4rem;
+            border-bottom: 1px solid #ececee;
+            font-size: 1.3rem;
+        }
+        .list-hd i{
+            display: block;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 1.4rem;
+            height: 1.4rem;
+            background: url(./img/close.jpg) no-repeat;
+            background-size: 100%;
+        }
+        .title{
+            text-align: center;
+            font-size: 1.3rem;
+            color: #999999;
+        }
+        .level{
+            position: absolute;
+            bottom: 0;
+            margin-left: 0.9rem;
+        }
+        .level span{
+            margin: 0 1.2rem;
+            padding-bottom: 1.34rem;
+            display:none;
+        }
+        .level .active{
+            border-bottom: 2px solid #f15352;
+            color: #f15352;
+        }
+        .level .show{
+            display: inline-block;
+        }
+        .list ul{
+            list-style: none;
+            height: 24.7rem;
+            overflow: scroll;
+            padding-left: 2rem;
+            padding-top: 1.5rem;
+            font-size: 1.3rem;
+            display: none;
+        }
+        .list ul li{
+            height: 4.4rem;
+        }
+        /*为选中的li添加样式*/
+        .list ul .active{
+            color: #f15352;
+        }
+        .list ul .active:after{
+            content: "√";
+            display: inline-block;
+            margin-left: 1rem;
+            width: 1rem;
+            height: 1rem;
+        }
+        /*提示弹框*/
+        .toast{
+            display:none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 22rem;
+            height: 4rem;
+            background-color: rgba(0,0,0,0.3);
+            font-size: 1.5rem;
+            color: white;
+            line-height: 4rem;
+            text-align: center;
+            border-radius: 1rem;
+            box-shadow: 1px 1px 20px 5px rgba(0,0,0,0.3);
+            /*transition: opacity 5s ease;*/
+        }
+        /*按钮选中样式*/
+        .isAgree:after{
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            display: block;
+            content: '';
+            border-radius: 999px;
+            width: 80%;
+            height: 80%;
+            background-color: #0076ff;
+        }
+    </style>
+    <script src = "./rem.js"></script>
+</head>
+<body>
+<div class="hd">
+    <a class="back-icon" href="javascript: history.go(-1)">
+
+    </a>
+    <span>升级为企业用户</span>
+</div>
+<div class="welcome">
+    <div class="pic">
+        <img src="./img/pic.jpg" />
+    </div>
+    <span>罗罗，欢迎来到企业购</span>
+</div>
+<div class="information">
+    <div>
+        <input id="company-name" type="text" placeholder="发票抬头/营业执照公司名称商务局"/>
+    </div>
+    <div class="position">
+        <span id="area">所在地区</span>
+        <i class="choose"></i>
+    </div>
+    <div>
+        <input id="contact-name" type="text" placeholder="联系人姓名" />
+    </div>
+</div>
+<div class="protocol">
+    <!--<label></label><input type="radio" />注册协议及隐私政策</label>-->
+    <div class="btn"></div>
+    <a>注册协议及隐私政策</a>
+</div>
+<div class="next-page">下一步</div>
+
+<!--x选择所在地区之后出现的弹框-->
+<div class="choice" style="display: none;">
+    <div class="list">
+        <div class="list-hd">
+            <div class="title">所在地区</div>
+            <i class="close"></i>
+            <div class="level">
+                <span class="active show location">请选择</span>
+                <span class="location">请选择</span>
+                <span class="location">请选择</span>
+            </div>
+        </div>
+        <ul class="province-list" style="display:block;">
+            <li class="active">上海</li>
+            <li>陕西省</li>
+            <li>上海</li>
+            <li>山西省</li>
+            <li>北京</li>
+            <li>上海</li>
+            <li>吉林省</li>
+            <li>辽宁省</li>
+            <li>上海</li>
+            <li>上海</li>
+        </ul>
+        <ul class="city-list">
+            <li>四平市</li>
+            <li>松原市</li>
+            <li>长岭市</li>
+            <li>吉林市</li>
+            <li>长春市</li>
+            <li>延吉市</li>
+            <li>辽源市</li>
+            <li>双辽市</li>
+        </ul>
+        <ul class="area-list">
+            <li>昌平区</li>
+            <li>大兴区</li>
+            <li>朝阳区</li>
+            <li>海淀区</li>
+            <li>门头沟区</li>
+            <li>通州区</li>
+            <li>东城区</li>
+            <li>西城区</li>
+        </ul>
+    </div>
+</div>
+<!--点击下一步后，若信息不完全的提示弹框-->
+<div class="toast"></div>
+<script type="text/javascript">
+    var provinceStr = "",
+        locations = document.getElementsByClassName("location"),
+        uls = document.getElementsByTagName("ul"),
+        companyName = document.getElementById("company-name"),
+        contactName = document.getElementById("contact-name"),
+        nextBtn = document.getElementsByClassName("next-page")[0],
+        toast = document.getElementsByClassName("toast")[0],
+        area = document.getElementById("area"),
+        isAgree = false;
+    document.getElementsByClassName("close")[0].onclick = function(){
+        document.getElementsByClassName("choice")[0].style.display = "none";
+    }
+    document.getElementsByClassName("position")[0].onclick = function(){
+        document.getElementsByClassName("choice")[0].style.display = "block";
+        provinceStr = "";
+    }
+//    选择地区
+    document.getElementsByClassName("list")[0].addEventListener("click",function(event){
+        if(event.target && event.target.nodeName.toUpperCase() == "LI"){
+//            addClass(event.target,'active');
+            event.target.parentNode.style.display = "none";
+            if(event.target.parentNode.className == "province-list"){
+                active(event.target);
+                sessionStorage.setItem('province',event.target.innerHTML);
+                locations[0].innerHTML = event.target.innerHTML;
+                locations[0].className = "location show";
+                locations[1].className = "location show active";
+                document.getElementsByClassName("city-list")[0].style.display = "block";
+            }else if(event.target.parentNode.className == "city-list"){
+                active(event.target);
+                sessionStorage.setItem('city',event.target.innerHTML);
+                locations[1].innerHTML = event.target.innerHTML;
+                locations[1].className = "location show";
+                locations[2].className = "location show active";
+                document.getElementsByClassName("area-list")[0].style.display = "block";
+            }else{
+                active(event.target);
+                sessionStorage.setItem('area',event.target.innerHTML);
+                locations[2].innerHTML = event.target.innerHTML;
+                document.getElementsByClassName("choice")[0].style.display = "none";
+                document.getElementsByClassName("area-list")[0].style.display = "block";
+                provinceStr = sessionStorage.getItem('province') + sessionStorage.getItem('city') + sessionStorage.getItem('area');
+                area.innerHTML = provinceStr;
+            }
+        }
+    },false)
+//    注册协议点击事件
+    document.getElementsByClassName("btn")[0].addEventListener("click",function(){
+        isAgree = !isAgree;
+        if(isAgree){
+            addClass(this,'isAgree');
+            this.style.border = "1px solid #0076ff";
+        }else{
+            removeClass(this,'isAgree');
+            this.style.border = "1px solid #ceceee";
+        }
+    });
+//    为三个级别的区域设置选项卡，点击切换事件
+    for(var i =0;i < 3; i++){
+        locations[i].index = i;
+        locations[i].onclick = function(){
+            for(var j = 0; j < 3; j++){
+                removeClass(locations[j],'active')
+                uls[j].style.display = "none";
+            }
+            this.className = "location show active";
+            uls[this.index].style.display = "block";
+        }
+    }
+//    去掉className的功能函数
+    function removeClass(obj, cls){
+        var obj_class = '' + obj.className + ' ';
+        obj_class = obj_class.replace(/(\s+)/gi, ' ');
+        var removed = obj_class.replace(' ' + cls + ' ', ' ');
+        removed = removed.replace(/(^\s+)|(\s+$)/g,'');
+        obj.className = removed;
+    }
+//    添加className的功能函数
+    function addClass(obj, cls){
+        var obj_class = obj.className,
+            blank = (obj_class != '') ? ' ' : '',
+            added = obj_class + blank + cls;
+        obj.className = added;
+    }
+//    选择地区之后样式变化的功能函数
+    function active(obj){
+        for(var a = 0;a < obj.parentNode.childNodes.length; a++){
+            obj.parentNode.childNodes[a].className='';
+        }
+        addClass(obj,'active');
+    }
+//    判断是否全部填写完成
+    nextBtn.addEventListener("click",function(){
+        if(companyName.value == ""){
+            toast.innerHTML = "请输入公司名称！";
+            toast.style.display = "block";
+            setTimeout(function(){
+                toast.style.display = "none";
+            },1000)
+            return;
+        }else if(area.innerHTML == "所在地区"){
+            toast.innerHTML = "请选择所在地区！";
+            toast.style.display = "block";
+            setTimeout(function(){
+                toast.style.display = "none";
+            },1000)
+            return;
+        }else if(contactName.value == ""){
+            toast.innerHTML = "请输入联系人姓名！";
+            toast.style.display = "block";
+            setTimeout(function(){
+                toast.style.display = "none";
+            },1000)
+            return;
+        }else if(!isAgree){
+            toast.innerHTML = "请详细阅读注册协议和隐私政策并同意！";
+            toast.style.display = "block";
+            setTimeout(function(){
+                toast.style.display = "none";
+            },1000)
+            return;
+        }else{
+            location.href = "./submit.html";
+        }
+    })
+</script>
+</body>
+</html>
