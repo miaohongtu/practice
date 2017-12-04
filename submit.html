@@ -167,6 +167,7 @@
     }
 //    点击提交
     document.getElementsByClassName("next-page")[0].addEventListener("click",function(){
+//        div的第六个子节点的src属性为上传的图片
         if(div.childNodes[6].nodeName.toUpperCase() !== "IMG"){
             document.getElementsByClassName("toast")[0].style.display = "block";
             document.getElementsByClassName("toast")[0].innerHTML = "请上传营业执照或组织机构代码证";
@@ -174,7 +175,21 @@
                 document.getElementsByClassName("toast")[0].style.display = "none";
             },1000)
         }else{
-            location.href = "./toast.html";
+//            ajax将信息传往服务器
+            var obj = new XMLHttpRequest();
+            obj.open("POST","http://192.168.43.115:8000/ha",true);
+            obj.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            obj.onreadystatechange = function(){
+                if(obj.readyState == 4 && (obj.status == 200 || obj.status == 304)){
+                    var response = obj.responseText;
+                    console.log(response);
+//                    拿到取回的信息跳转页面
+                    location.href = "./toast.html?"+ response;
+                }
+            };
+            var data = "companyName=" + sessionStorage.getItem("companyName") + "&provinceStr=" + sessionStorage.getItem("province") + sessionStorage.getItem("city") +
+                sessionStorage.getItem("area") + "&contactName=" + sessionStorage.getItem("contactName") + "&protocolImage=" + div.childNodes[6].src;
+            obj.send(data);
         }
     });
 </script>

@@ -101,6 +101,10 @@
             top: 1.55rem;
             width: 1.4rem;
             height: 1.4rem;
+            border-top-left-radius: 999px; /* 左上角 */
+            border-top-right-radius: 999px; /* 右上角 */
+            border-bottom-right-radius: 999px; /* 右下角 */
+            border-bottom-left-radius: 999px; /* 左下角 */
             border-radius: 999px;
             display: inline-block;
             border: 1px solid #cecece;
@@ -219,15 +223,20 @@
             /*transition: opacity 5s ease;*/
         }
         /*按钮选中样式*/
-        .isAgree:after{
+        .isAgree{
             position: absolute;
-            top: 10%;
-            left: 10%;
-            display: block;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            display: none;
             content: '';
+            border-top-left-radius: 999px; /* 左上角 */
+            border-top-right-radius: 999px; /* 右上角 */
+            border-bottom-right-radius: 999px; /* 右下角 */
+            border-bottom-left-radius: 999px; /* 左下角 */
             border-radius: 999px;
-            width: 80%;
-            height: 80%;
+            width: 1rem;
+            height: 1rem;
             background-color: #0076ff;
         }
     </style>
@@ -260,7 +269,9 @@
 </div>
 <div class="protocol">
     <!--<label></label><input type="radio" />注册协议及隐私政策</label>-->
-    <div class="btn"></div>
+    <div class="btn">
+        <div class="isAgree"></div>
+    </div>
     <a>注册协议及隐私政策</a>
 </div>
 <div class="next-page">下一步</div>
@@ -323,13 +334,24 @@
         toast = document.getElementsByClassName("toast")[0],
         area = document.getElementById("area"),
         isAgree = false;
+//        输入公司名称
+//    companyName.addEventListener("input",function(){
+//        if(this.value.indexOf("#") != -1 || this.value.indexOf("$") != -1){
+//            toast.innerHTML = "请输入合法的公司名称！";
+//            this.value = "";
+//            toast.style.display = "block";
+//            setTimeout(function(){
+//                toast.style.display = "none";
+//            },1000)
+//        }
+//    })
     document.getElementsByClassName("close")[0].onclick = function(){
         document.getElementsByClassName("choice")[0].style.display = "none";
-    }
+    };
     document.getElementsByClassName("position")[0].onclick = function(){
         document.getElementsByClassName("choice")[0].style.display = "block";
         provinceStr = "";
-    }
+    };
 //    选择地区
     document.getElementsByClassName("list")[0].addEventListener("click",function(event){
         if(event.target && event.target.nodeName.toUpperCase() == "LI"){
@@ -359,15 +381,15 @@
                 area.innerHTML = provinceStr;
             }
         }
-    },false)
+    },false);
 //    注册协议点击事件
     document.getElementsByClassName("btn")[0].addEventListener("click",function(){
         isAgree = !isAgree;
         if(isAgree){
-            addClass(this,'isAgree');
+            document.getElementsByClassName("isAgree")[0].style.display = "block";
             this.style.border = "1px solid #0076ff";
         }else{
-            removeClass(this,'isAgree');
+            document.getElementsByClassName("isAgree")[0].style.display = "none";
             this.style.border = "1px solid #ceceee";
         }
     });
@@ -436,6 +458,8 @@
             },1000)
             return;
         }else{
+            sessionStorage.setItem("companyName",companyName.value);
+            sessionStorage.setItem("contactName",contactName.value);
             location.href = "./submit.html";
         }
     })
