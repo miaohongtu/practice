@@ -1,6 +1,7 @@
 let express = require("express");
 var bodyParser = require("body-parser");
 let app = new express();
+app.use(express.urlencoded({limit: "50mb"}));
 app.use(bodyParser.urlencoded());
 app.use(express.static(__dirname));
 app.get("/",function(req,res,next){
@@ -17,7 +18,7 @@ app.get("/toast",function(req,res,next){
 })
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.post("/ha",urlencodedParser,function(req,res,next){
-    console.log(req.body);
+    console.log(req.body.provinceStr);
     res.send("henhao");
 });
 app.listen(8000,"192.168.43.115",function(){

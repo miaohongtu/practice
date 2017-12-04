@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <meta name = "viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title></title>
+    <link rel="stylesheet" type="text/css" href="./common.css" />
     <style>
-        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td {
-            margin:0;
-            padding:0;
+        .hd{
+            height: 4.5rem;
+            width: 100%;
+            line-height: 4.5rem;
+            font-size: 1.6rem;
+            border-bottom: 1px solid #ececee;
+            position: relative;
+            text-align: center;
+            background-color: white;
         }
-        html{
-            height: 100%;
-        }
-        body{
-            min-height: 100%;
-            background-color: #f8f8f8;
-            /*background-color: rgba(0,0,0,0.3);*/
+        .back-icon{
+            display:block;
+            position: absolute;
+            top: 1.4rem;
+            left: 1.4rem;
+            width: 1.6rem;
+            height: 1.6rem;
+            background-image: url(./img/back-icon.jpg);
+            background-size: 100% 100%;
         }
         .toast{
             position: absolute;
@@ -36,6 +45,12 @@
     <script src="./rem.js"></script>
 </head>
 <body>
-    <div class="toast">提交成功，请等待审核</div>
+<div class="hd">
+    <a class="back-icon" href="javascript: history.go(-1)">
+
+    </a>
+    <span>升级为企业用户</span>
+</div>
+<div class="toast">提交成功，请等待审核</div>
 </body>
 </html>
