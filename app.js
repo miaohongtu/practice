@@ -1,6 +1,6 @@
-let express = require("express");
+var express = require("express");
 var bodyParser = require("body-parser");
-let app = new express();
+var app = new express();
 app.use(express.urlencoded({limit: "50mb"}));
 app.use(bodyParser.urlencoded());
 app.use(express.static(__dirname));
